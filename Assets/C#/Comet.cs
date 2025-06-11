@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Ster : MonoBehaviour
+public class Comet : MonoBehaviour
 {
     [SerializeField]
     private float speed = 5f;
@@ -30,8 +30,8 @@ public class Ster : MonoBehaviour
         // 衝突したオブジェクトのタグを取得
         if (other.CompareTag("Player"))
         {
-            Debug.Log("星を取った！！");
-            gameManager.score += gameManager.sterScore;
+            Debug.Log("彗星を取った！！");
+            gameManager.score += gameManager.cometScore;
             Destroy(gameObject);
         }
         else
