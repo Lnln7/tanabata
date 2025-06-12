@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -15,6 +16,10 @@ public class GameManager : MonoBehaviour
 
     [Header("ゲーム時間")]
     public float gameEndTime;
+    [Header("リザルト待ちの時間")]
+    public float resultWaitTime;
+    [Header("リザルト時間")]
+    public float resultTime;
 
     [Header("星の点数")]
     public int sterScore;
@@ -29,6 +34,10 @@ public class GameManager : MonoBehaviour
 
     [Header("ルール説明のパネル")]
     public GameObject panel;
+    [Header("リザルトのパネル")]
+    public GameObject resultPanel;
+    [Header("リザルトのスコア")]
+    public Text resultScoreText;
     [Header("カウントダウンのテキスト")]
     public Text countDownText;
     [Header("スコアのテキスト")]
@@ -40,6 +49,7 @@ public class GameManager : MonoBehaviour
     [Header("ノーマル星がいくつ惑星の間にあるのか")]
     public int planetInterval = 5;//ノーマル星がいくつ惑星の間にあるのか
     private int planetIntervalCount = 0;
+    private int planetNumber;
 
     [Header("星の生成間隔")]
     public float spawnInterval = 2.0f; // 生成間隔（秒）
@@ -54,6 +64,7 @@ public class GameManager : MonoBehaviour
     {
         gameOn = false;
         panel.SetActive(true);
+        resultPanel.SetActive(false);
         cometTiming = Random.Range(1, 8);
         cometTimingCount = 0;
         planetIntervalCount = 0;
@@ -94,6 +105,9 @@ public class GameManager : MonoBehaviour
         countDownText.text = "";
 
         gameOn = false;
+
+        yield return new WaitForSeconds(resultWaitTime);
+        StartCoroutine(WaitResult());
     }
 
     IEnumerator WaitReading()
@@ -163,5 +177,13 @@ public class GameManager : MonoBehaviour
             // 指定した間隔待機
             yield return new WaitForSeconds(spawnInterval);
         }
+    }
+
+    IEnumerator WaitResult()
+    {
+        resultPanel.SetActive(true);
+        resultScoreText.text = score.ToString();
+        yield return new WaitForSeconds(resultTime);
+        SceneManager.LoadScene("TitleScene");
     }
 }
