@@ -9,6 +9,7 @@ public class Planet : MonoBehaviour
     private Rigidbody2D rb;
     private GameObject gameManagerObj;
     private GameManager gameManager;
+    private int planetNumber;
 
     // Start is called before the first frame update
     void Start()
@@ -16,6 +17,16 @@ public class Planet : MonoBehaviour
         gameManagerObj = GameObject.Find("GameManager");
         gameManager = gameManagerObj.GetComponent<GameManager>();
         rb = GetComponent<Rigidbody2D>();
+
+        var list = gameManager.PlanetOder();
+
+
+        if (gameManager.planetIntervalCount != 0)
+        {
+            //この惑星の番号を取得。なんの惑星か。
+            planetNumber = list[gameManager.planetIntervalCount-1];
+        }
+        
     }
 
     // Update is called once per frame
@@ -30,8 +41,12 @@ public class Planet : MonoBehaviour
         // 衝突したオブジェクトのタグを取得
         if (other.CompareTag("Player"))
         {
-            Debug.Log("惑星を取った！！");
+            //Debug.Log("惑星を取った！！");
+            var list = gameManager.GetPlanetList();
+
             gameManager.score += gameManager.planetScore;
+            list[planetNumber] = true;
+            Debug.Log(planetNumber+"を取得");
             Destroy(gameObject);
         }
         else

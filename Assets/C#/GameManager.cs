@@ -48,8 +48,10 @@ public class GameManager : MonoBehaviour
 
     [Header("ノーマル星がいくつ惑星の間にあるのか")]
     public int planetInterval = 5;//ノーマル星がいくつ惑星の間にあるのか
-    private int planetIntervalCount = 0;
-    private int planetNumber;
+    private int planetCometIntervalCount = 0;//惑星と彗星を既に何個出したか
+    public int planetIntervalCount = 0;//惑星を既に何個出したか
+    private List<int> planetOrder;
+    private List<bool> getPlanetList;
 
     [Header("星の生成間隔")]
     public float spawnInterval = 2.0f; // 生成間隔（秒）
@@ -59,6 +61,13 @@ public class GameManager : MonoBehaviour
     [Header("生成座標Y")]
     public float spawnPointY; // 生成位置Y
 
+    void Awake()
+    {
+        planetOrder = new() { 0, 1, 2, 3, 4, 5, 6 };
+        getPlanetList = new List<bool> { false, false, false, false, false, false, false };
+    }
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -67,12 +76,25 @@ public class GameManager : MonoBehaviour
         resultPanel.SetActive(false);
         cometTiming = Random.Range(1, 8);
         cometTimingCount = 0;
-        planetIntervalCount = 0;
+        planetCometIntervalCount = 0;
         countDownText.text = "";
 
+        /*
+        for (int i = 0; i < getPlanetList.Count; i++)
+        {
+            planetOrder.Add(i);
+        }
+*/
+        if (planetOrder!=null && planetOrder.Count != 0)
+        {
+            Shuffle(planetOrder);
+        }
+        
 
         StartCoroutine(WaitReading());
     }
+
+    
 
     // Update is called once per frame
     void Update()
@@ -85,6 +107,30 @@ public class GameManager : MonoBehaviour
         {
             scoreText.text = "";
         }
+    }
+
+    
+    private void Shuffle(List<int> list)
+    {
+        if (list != null && list.Count != 0)
+        {
+            for (int i = list.Count - 1; i > 0; i--)
+            {
+                int randomIndex = Random.Range(0, i + 1);
+                int temp = list[i];
+                list[i] = list[randomIndex];
+                list[randomIndex] = temp;
+            }
+        }
+    }
+
+    public List<bool> GetPlanetList()
+    {
+        return getPlanetList; // 注意：呼び出し元も変更できる
+    }
+    public List<int> PlanetOder()
+    {
+        return planetOrder; // 注意：呼び出し元も変更できる
     }
 
     //ゲーム終了時のカウントダウン
@@ -149,9 +195,9 @@ public class GameManager : MonoBehaviour
         {
             spawnPoint = new Vector3(Random.Range(-3.0f, 3.0f), spawnPointY, 0);
 
-            if (planetIntervalCount == planetInterval && cometTimingCount != 8)
+            if (planetCometIntervalCount == planetInterval && cometTimingCount != 8)
             {
-                planetIntervalCount = 0;
+                planetCometIntervalCount = 0;
                 cometTimingCount++;
 
                 if(cometTiming == cometTimingCount)
@@ -161,6 +207,8 @@ public class GameManager : MonoBehaviour
                 }
                 else
                 {
+                    //何個目の惑星か数える
+                    planetIntervalCount++;
                     // 惑星プレハブを生成
                     Instantiate(planetPrefab, spawnPoint, new Quaternion(0, 0, 0, 0));
                 }
@@ -171,7 +219,7 @@ public class GameManager : MonoBehaviour
                 // 星プレハブを生成
                 Instantiate(sterPrefab, spawnPoint, new Quaternion(0, 0, 0, 0));
 
-                planetIntervalCount++;
+                planetCometIntervalCount++;
             }
 
             // 指定した間隔待機

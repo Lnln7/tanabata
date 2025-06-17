@@ -787,107 +787,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e41628a92de28454cbfa71b4021d6170, type: 3}
---- !u!1001 &1507219783
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 3229100731407896484, guid: ad969432d73d45e40b1970469cf15d7d, type: 3}
-      propertyPath: m_Name
-      value: GameManager
-      objectReference: {fileID: 0}
-    - target: {fileID: 3229100731407896485, guid: ad969432d73d45e40b1970469cf15d7d, type: 3}
-      propertyPath: panel
-      value: 
-      objectReference: {fileID: 82557823}
-    - target: {fileID: 3229100731407896485, guid: ad969432d73d45e40b1970469cf15d7d, type: 3}
-      propertyPath: scoreText
-      value: 
-      objectReference: {fileID: 2035113491}
-    - target: {fileID: 3229100731407896485, guid: ad969432d73d45e40b1970469cf15d7d, type: 3}
-      propertyPath: resultTime
-      value: 30
-      objectReference: {fileID: 0}
-    - target: {fileID: 3229100731407896485, guid: ad969432d73d45e40b1970469cf15d7d, type: 3}
-      propertyPath: cometPrefab
-      value: 
-      objectReference: {fileID: 4464930046059004841, guid: 6b8c18618c174434c98589e9eeae8005, type: 3}
-    - target: {fileID: 3229100731407896485, guid: ad969432d73d45e40b1970469cf15d7d, type: 3}
-      propertyPath: gameEndTime
-      value: 30
-      objectReference: {fileID: 0}
-    - target: {fileID: 3229100731407896485, guid: ad969432d73d45e40b1970469cf15d7d, type: 3}
-      propertyPath: resultPanel
-      value: 
-      objectReference: {fileID: 1573538023}
-    - target: {fileID: 3229100731407896485, guid: ad969432d73d45e40b1970469cf15d7d, type: 3}
-      propertyPath: waitReading
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 3229100731407896485, guid: ad969432d73d45e40b1970469cf15d7d, type: 3}
-      propertyPath: countDownText
-      value: 
-      objectReference: {fileID: 342550445}
-    - target: {fileID: 3229100731407896485, guid: ad969432d73d45e40b1970469cf15d7d, type: 3}
-      propertyPath: spawnInterval
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 3229100731407896485, guid: ad969432d73d45e40b1970469cf15d7d, type: 3}
-      propertyPath: resultWaitTime
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 3229100731407896485, guid: ad969432d73d45e40b1970469cf15d7d, type: 3}
-      propertyPath: resultScoreText
-      value: 
-      objectReference: {fileID: 1299222106}
-    - target: {fileID: 3229100731407896486, guid: ad969432d73d45e40b1970469cf15d7d, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -0.09
-      objectReference: {fileID: 0}
-    - target: {fileID: 3229100731407896486, guid: ad969432d73d45e40b1970469cf15d7d, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 7.23
-      objectReference: {fileID: 0}
-    - target: {fileID: 3229100731407896486, guid: ad969432d73d45e40b1970469cf15d7d, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0.054654256
-      objectReference: {fileID: 0}
-    - target: {fileID: 3229100731407896486, guid: ad969432d73d45e40b1970469cf15d7d, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3229100731407896486, guid: ad969432d73d45e40b1970469cf15d7d, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3229100731407896486, guid: ad969432d73d45e40b1970469cf15d7d, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3229100731407896486, guid: ad969432d73d45e40b1970469cf15d7d, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3229100731407896486, guid: ad969432d73d45e40b1970469cf15d7d, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3229100731407896486, guid: ad969432d73d45e40b1970469cf15d7d, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3229100731407896486, guid: ad969432d73d45e40b1970469cf15d7d, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: ad969432d73d45e40b1970469cf15d7d, type: 3}
 --- !u!1 &1573538023
 GameObject:
   m_ObjectHideFlags: 0
@@ -1149,12 +1048,76 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2035113489}
   m_CullTransparentMesh: 1
+--- !u!4 &3229100732327384801
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3229100732327384803}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.09, y: 7.23, z: 0.054654256}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3229100732327384802
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3229100732327384803}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 92046bd65c835334c91bd3823d0d77b9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  score: 0
+  waitReading: 3
+  gameEndTime: 30
+  resultWaitTime: 4
+  resultTime: 30
+  sterScore: 10
+  planetScore: 30
+  cometScore: 50
+  sterPrefab: {fileID: 3296454666246116116, guid: 953aa7ddba2d96b43b5c736c4d290641, type: 3}
+  planetPrefab: {fileID: 8991965282364145727, guid: d0bf316d58d85b4428b247e77921721d, type: 3}
+  cometPrefab: {fileID: 4464930046059004841, guid: 6b8c18618c174434c98589e9eeae8005, type: 3}
+  panel: {fileID: 82557823}
+  resultPanel: {fileID: 1573538023}
+  resultScoreText: {fileID: 1299222106}
+  countDownText: {fileID: 342550445}
+  scoreText: {fileID: 2035113491}
+  planetInterval: 5
+  planetIntervalCount: 0
+  spawnInterval: 0.5
+  spawnPointY: 8
+--- !u!1 &3229100732327384803
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3229100732327384801}
+  - component: {fileID: 3229100732327384802}
+  m_Layer: 0
+  m_Name: GameManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 1258933832}
-  - {fileID: 1507219783}
+  - {fileID: 3229100732327384801}
   - {fileID: 1418940291}
   - {fileID: 743866812}
   - {fileID: 2026261524}

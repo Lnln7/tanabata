@@ -30,7 +30,7 @@ public class Ster : MonoBehaviour
         // 衝突したオブジェクトのタグを取得
         if (other.CompareTag("Player"))
         {
-            Debug.Log("星を取った！！");
+            //Debug.Log("星を取った！！");
             gameManager.score += gameManager.sterScore;
             Destroy(gameObject);
         }
