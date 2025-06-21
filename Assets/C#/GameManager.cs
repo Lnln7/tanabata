@@ -52,6 +52,8 @@ public class GameManager : MonoBehaviour
     public int planetIntervalCount = 0;//惑星を既に何個出したか
     private List<int> planetOrder;
     private List<bool> getPlanetList;
+    [Header("惑星のスプライト")]
+    public Sprite[] sprites; // 切り替えたいスプライトを配列で設定
 
     [Header("星の生成間隔")]
     public float spawnInterval = 2.0f; // 生成間隔（秒）
@@ -60,6 +62,14 @@ public class GameManager : MonoBehaviour
     public Vector3 spawnPoint; // 生成位置
     [Header("生成座標Y")]
     public float spawnPointY; // 生成位置Y
+    
+    private AudioSource audioSource = null;
+
+    [Header("SE")]
+    public AudioClip starSE;
+    public AudioClip planetSE;
+    public AudioClip cometSE;
+
 
     void Awake()
     {
@@ -78,13 +88,8 @@ public class GameManager : MonoBehaviour
         cometTimingCount = 0;
         planetCometIntervalCount = 0;
         countDownText.text = "";
+        audioSource = GetComponent<AudioSource>();
 
-        /*
-        for (int i = 0; i < getPlanetList.Count; i++)
-        {
-            planetOrder.Add(i);
-        }
-*/
         if (planetOrder!=null && planetOrder.Count != 0)
         {
             Shuffle(planetOrder);
@@ -230,8 +235,28 @@ public class GameManager : MonoBehaviour
     IEnumerator WaitResult()
     {
         resultPanel.SetActive(true);
+        for (int i = 0; i < 6; i++)
+        {
+            if (getPlanetList[i])
+            {
+                resultPanel.transform.GetChild(i+2).gameObject.SetActive(true);
+            }
+        }
         resultScoreText.text = score.ToString();
         yield return new WaitForSeconds(resultTime);
         SceneManager.LoadScene("TitleScene");
+    }
+
+    
+    public void PlaySE(AudioClip clip)//呼び出されたらSE
+    {
+        if (audioSource != null)
+        {
+            audioSource.PlayOneShot(clip);
+        }
+        else
+        {
+            Debug.Log("audiosource=null");
+        }
     }
 }

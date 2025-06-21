@@ -10,6 +10,7 @@ public class Planet : MonoBehaviour
     private GameObject gameManagerObj;
     private GameManager gameManager;
     private int planetNumber;
+    private SpriteRenderer spriteRenderer;
 
     // Start is called before the first frame update
     void Start()
@@ -17,6 +18,9 @@ public class Planet : MonoBehaviour
         gameManagerObj = GameObject.Find("GameManager");
         gameManager = gameManagerObj.GetComponent<GameManager>();
         rb = GetComponent<Rigidbody2D>();
+
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        
 
         var list = gameManager.PlanetOder();
 
@@ -26,7 +30,11 @@ public class Planet : MonoBehaviour
             //この惑星の番号を取得。なんの惑星か。
             planetNumber = list[gameManager.planetIntervalCount-1];
         }
-        
+
+        //見た目をリストから選んで変える
+        //if(gameManager.sprites[planetNumber] != null)
+          //spriteRenderer.sprite = gameManager.sprites[planetNumber];
+
     }
 
     // Update is called once per frame
@@ -43,6 +51,8 @@ public class Planet : MonoBehaviour
         {
             //Debug.Log("惑星を取った！！");
             var list = gameManager.GetPlanetList();
+
+            gameManager.PlaySE(gameManager.planetSE);
 
             gameManager.score += gameManager.planetScore;
             list[planetNumber] = true;

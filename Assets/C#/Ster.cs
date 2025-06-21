@@ -31,6 +31,7 @@ public class Ster : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             //Debug.Log("¯‚ğæ‚Á‚½II");
+            gameManager.PlaySE(gameManager.starSE);
             gameManager.score += gameManager.sterScore;
             Destroy(gameObject);
         }

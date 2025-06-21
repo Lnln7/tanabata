@@ -31,6 +31,8 @@ public class Comet : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             Debug.Log("œa¯‚ğæ‚Á‚½II");
+            gameManager.PlaySE(gameManager.cometSE);
+
             gameManager.score += gameManager.cometScore;
             Destroy(gameObject);
         }
