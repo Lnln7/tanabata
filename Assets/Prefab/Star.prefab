@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3296454666246116118}
   - component: {fileID: 3296454666246116117}
   - component: {fileID: 3296454666246116113}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Star
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -30,7 +30,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.14, y: 6.76, z: -0.12}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_LocalScale: {x: 0.07, y: 0.07, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -73,10 +73,10 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -1545610377
+  m_SortingLayer: 2
   m_SortingOrder: 0
-  m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 4de9514986b1e3f43853e6fa4754cf6f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -121,7 +121,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 2.5
 --- !u!114 &3296454666246116117
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -134,7 +134,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2eeb2a8f62dfd55438ca9ceda4739857, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 5
+  speed: 3
+  delay: 8
 --- !u!50 &3296454666246116113
 Rigidbody2D:
   serializedVersion: 4

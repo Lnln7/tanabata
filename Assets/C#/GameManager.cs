@@ -11,15 +11,23 @@ public class GameManager : MonoBehaviour
 
     public int score;
 
+    [SerializeField]
     [Header("ルール説明時のプッシュが反応しない期間")]
     public float waitReading = 0;
 
+    [SerializeField]
     [Header("ゲーム時間")]
-    public float gameEndTime;
+    private float gameEndTime;
+    [SerializeField]
     [Header("リザルト待ちの時間")]
-    public float resultWaitTime;
+    private float resultWaitTime;
     [Header("リザルト時間")]
-    public float resultTime;
+    [SerializeField]
+    private float resultTime;
+    [Header("BGMフェード時間")]
+    [SerializeField]
+    private float fadeDuration = 2.0f;
+
 
     [Header("星の点数")]
     public int sterScore;
@@ -32,36 +40,46 @@ public class GameManager : MonoBehaviour
     public GameObject planetPrefab;
     public GameObject cometPrefab;
 
+    [SerializeField]
     [Header("ルール説明のパネル")]
-    public GameObject panel;
+    private GameObject panel;
+    [SerializeField]
     [Header("リザルトのパネル")]
-    public GameObject resultPanel;
+    private GameObject resultPanel;
+    [SerializeField]
     [Header("リザルトのスコア")]
-    public Text resultScoreText;
+    private Text resultScoreText;
+    [SerializeField]
     [Header("カウントダウンのテキスト")]
-    public Text countDownText;
+    private Text countDownText;
+    [SerializeField]
     [Header("スコアのテキスト")]
-    public Text scoreText;
+    private Text scoreText;
 
     private int cometTiming;//何個目の惑星が彗星に置き換わるのか
     private int cometTimingCount = 0;//何個目の惑星か
 
+    [SerializeField]
     [Header("ノーマル星がいくつ惑星の間にあるのか")]
-    public int planetInterval = 5;//ノーマル星がいくつ惑星の間にあるのか
+    private int planetInterval = 5;//ノーマル星がいくつ惑星の間にあるのか
     private int planetCometIntervalCount = 0;//惑星と彗星を既に何個出したか
+    [System.NonSerialized]
     public int planetIntervalCount = 0;//惑星を既に何個出したか
     private List<int> planetOrder;
     private List<bool> getPlanetList;
+    [SerializeField]
     [Header("惑星のスプライト")]
-    public Sprite[] sprites; // 切り替えたいスプライトを配列で設定
+    private List<Sprite> sprites; // 切り替えたいスプライトを配列で設定
 
+    [SerializeField]
     [Header("星の生成間隔")]
-    public float spawnInterval = 2.0f; // 生成間隔（秒）
+    private float spawnInterval = 2.0f; // 生成間隔（秒）
 
     [System.NonSerialized]
-    public Vector3 spawnPoint; // 生成位置
+    private Vector3 spawnPoint; // 生成位置
+    [SerializeField]
     [Header("生成座標Y")]
-    public float spawnPointY; // 生成位置Y
+    private float spawnPointY; // 生成位置Y
     
     private AudioSource audioSource = null;
 
@@ -69,12 +87,19 @@ public class GameManager : MonoBehaviour
     public AudioClip starSE;
     public AudioClip planetSE;
     public AudioClip cometSE;
+    [Header("BGM")]
+    public AudioClip ruleBGM;
+    public AudioClip gameBGM;
+    public AudioClip resultBGM;
+
+    [System.NonSerialized]
+    public bool isButton = false;
 
 
     void Awake()
     {
-        planetOrder = new() { 0, 1, 2, 3, 4, 5, 6 };
-        getPlanetList = new List<bool> { false, false, false, false, false, false, false };
+        planetOrder = new() { 0, 1, 2, 3, 4, 5, 6 ,7};
+        getPlanetList = new List<bool> { false, false, false, false, false, false, false ,false};
     }
 
 
@@ -84,7 +109,7 @@ public class GameManager : MonoBehaviour
         gameOn = false;
         panel.SetActive(true);
         resultPanel.SetActive(false);
-        cometTiming = Random.Range(1, 8);
+        cometTiming = Random.Range(2, 9);
         cometTimingCount = 0;
         planetCometIntervalCount = 0;
         countDownText.text = "";
@@ -94,8 +119,8 @@ public class GameManager : MonoBehaviour
         {
             Shuffle(planetOrder);
         }
-        
 
+        PlayRuleBGM();
         StartCoroutine(WaitReading());
     }
 
@@ -138,6 +163,11 @@ public class GameManager : MonoBehaviour
         return planetOrder; // 注意：呼び出し元も変更できる
     }
 
+    public List<Sprite> PlanetSprite()
+    {
+        return sprites; // 注意：呼び出し元も変更できる
+    }
+
     //ゲーム終了時のカウントダウン
     IEnumerator wateGameEnd()
     {
@@ -147,7 +177,16 @@ public class GameManager : MonoBehaviour
 
         count = 10;
 
-        while(count != -1)
+        while(count != 1)
+        {
+            countDownText.text = count.ToString();
+            yield return new WaitForSeconds(1.0f);
+            count--;
+        }
+
+        gameOn = false;
+
+        while (count != -1)
         {
             countDownText.text = count.ToString();
             yield return new WaitForSeconds(1.0f);
@@ -155,9 +194,8 @@ public class GameManager : MonoBehaviour
         }
         countDownText.text = "";
 
-        gameOn = false;
-
         yield return new WaitForSeconds(resultWaitTime);
+        PlayResultBGM();
         StartCoroutine(WaitResult());
     }
 
@@ -171,9 +209,13 @@ public class GameManager : MonoBehaviour
     {
         Debug.Log("スペースキーが押されるのを待っています...");
 
+        // isButton が true になるまで待機
+        while (!isButton)
+        {
+            yield return null; // 毎フレーム待機
+        }
 
-        yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Space));
-
+        StartCoroutine(FadeOutCoroutine());
 
         gameOn = true;
         panel.SetActive(false);
@@ -187,7 +229,7 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(1.0f);
         countDownText.text = "";
 
-
+        PlayGameBGM();
 
         // コルーチンを開始
         StartCoroutine(SpawnPrefab());
@@ -198,9 +240,9 @@ public class GameManager : MonoBehaviour
     {
         while (gameOn)
         {
-            spawnPoint = new Vector3(Random.Range(-3.0f, 3.0f), spawnPointY, 0);
+            spawnPoint = new Vector3(Random.Range(-2.7f, 2.7f), spawnPointY, 0);
 
-            if (planetCometIntervalCount == planetInterval && cometTimingCount != 8)
+            if (planetCometIntervalCount == planetInterval && cometTimingCount != 9)
             {
                 planetCometIntervalCount = 0;
                 cometTimingCount++;
@@ -235,11 +277,15 @@ public class GameManager : MonoBehaviour
     IEnumerator WaitResult()
     {
         resultPanel.SetActive(true);
-        for (int i = 0; i < 6; i++)
+        for (int i = 0; i < 7; i++)
         {
             if (getPlanetList[i])
             {
-                resultPanel.transform.GetChild(i+2).gameObject.SetActive(true);
+                resultPanel.transform.GetChild(i+1).gameObject.SetActive(true);
+            }
+            else
+            {
+                resultPanel.transform.GetChild(i + 1).gameObject.SetActive(false);
             }
         }
         resultScoreText.text = score.ToString();
@@ -258,5 +304,44 @@ public class GameManager : MonoBehaviour
         {
             Debug.Log("audiosource=null");
         }
+    }
+
+    public void PlayRuleBGM()
+    {
+        audioSource.Stop();
+        audioSource.loop = true; // ループを有効にする
+        audioSource.clip = ruleBGM;
+        audioSource.Play();
+    }
+
+    public void PlayGameBGM()
+    {
+        audioSource.Stop();
+        audioSource.loop = false; // ループを無効に
+        audioSource.clip = gameBGM;
+        audioSource.Play();
+    }
+
+    private IEnumerator FadeOutCoroutine()
+    {
+        float startVolume = audioSource.volume;
+
+        while (audioSource.volume > 0)
+        {
+            audioSource.volume -= startVolume * Time.deltaTime / fadeDuration;
+            yield return null;
+        }
+
+        audioSource.Stop();
+        audioSource.volume = startVolume; // 元の音量に戻しておく
+    }
+
+
+    public void PlayResultBGM()
+    {
+        audioSource.Stop();
+        audioSource.loop = true; // ループを有効にする
+        audioSource.clip = resultBGM;
+        audioSource.Play();
     }
 }

@@ -6,6 +6,8 @@ public class Ster : MonoBehaviour
 {
     [SerializeField]
     private float speed = 5f;
+    [SerializeField]
+    private float delay = 4.0f; // íœ‚Ü‚Å‚Ì•b”
     private Rigidbody2D rb;
     private GameObject gameManagerObj;
     private GameManager gameManager;
@@ -16,6 +18,8 @@ public class Ster : MonoBehaviour
         gameManagerObj = GameObject.Find("GameManager");
         gameManager = gameManagerObj.GetComponent<GameManager>();
         rb = GetComponent<Rigidbody2D>();
+
+        Destroy(gameObject, delay);
     }
 
     // Update is called once per frame

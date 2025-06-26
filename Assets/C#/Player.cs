@@ -6,37 +6,42 @@ using System.IO.Ports;
 
 public class Player : MonoBehaviour
 {
-    
-    [SerializeField]//マウスで
-    private float positionY = -5.7f;
-    [SerializeField]
-    private float division = 1;
+    private Animator animator;
+    public float moveSpeed = 3f;
+    private SpriteRenderer spriteRenderer;
+    private GameObject gameManagerObj;
+    private GameManager gameManager;
+
+
+
+    //レバーで
+    SerialPort serial = new SerialPort("COM6", 9600);
+    public Rigidbody2D rb;
     
 
-    /*
-    //レバーで
-    SerialPort serial = new SerialPort("COM5", 9600);
-    public Rigidbody2D rb;
-    public float moveSpeed = 3f;
-    */
 
 
     // Start is called before the first frame update
     void Start()
     {
-        /*
+        animator = GetComponent<Animator>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        gameManagerObj = GameObject.Find("GameManager");
+        gameManager = gameManagerObj.GetComponent<GameManager>();
+
+
         if (!serial.IsOpen)
         {
             serial.Open();
             serial.ReadTimeout = 100;
         }
-        */
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-        /*
+        
         if (serial.IsOpen)
         {
             try
@@ -46,36 +51,71 @@ public class Player : MonoBehaviour
                 int x = ParseXValue(data);
 
                 Debug.Log("x_value = " + x);
-
-
-                if (x < 400)
+                if (data.Contains("PUSHED!"))
                 {
-                    rb.velocity = new Vector2(-moveSpeed, rb.velocity.y); // 左
-                }
-                else if (x > 600)
-                {
-                    rb.velocity = new Vector2(moveSpeed, rb.velocity.y); // 右
+                    gameManager.isButton = true;
+                    Debug.Log("ボタンが押されました！");
+                    // ここに任意の処理を追加（例：オブジェクトを動かすなど）
                 }
                 else
                 {
+                    gameManager.isButton = false;
+                }
+
+
+                if (x < 100 && transform.position.x > -2.5)
+                {
+                    animator.SetBool("isMove", true);
+                    spriteRenderer.flipX = true;  // 左向き
+                    rb.velocity = new Vector2(-moveSpeed, rb.velocity.y); // 左
+                }
+                else if (x < 450 && transform.position.x > -2.5)
+                {
+                    animator.SetBool("isMove", true);
+                    spriteRenderer.flipX = true;  // 左向き
+                    rb.velocity = new Vector2(-moveSpeed/2, rb.velocity.y); // 左
+                }
+                else if (x > 900 && transform.position.x < 2.5)
+                {
+                    animator.SetBool("isMove", true);
+                    spriteRenderer.flipX = false; // 右向き
+                    rb.velocity = new Vector2(moveSpeed, rb.velocity.y); // 右
+                }
+                else if (x > 680 && transform.position.x < 2.5)
+                {
+                    animator.SetBool("isMove", true);
+                    spriteRenderer.flipX = false; // 右向き
+                    rb.velocity = new Vector2(moveSpeed/2, rb.velocity.y); // 右
+                }
+                else
+                {
+                    animator.SetBool("isMove", false);
+                    spriteRenderer.flipX = false; // 右向き
                     rb.velocity = new Vector2(0, rb.velocity.y); // 停止
                 }
             }
             catch (System.Exception) { }
         }
+
+
+        /*
+        float move = Input.GetAxis("Horizontal");
+        transform.Translate(Vector3.right * move * moveSpeed * Time.deltaTime);
+        if(Mathf.Abs(move)>0.1)
+        {
+            animator.SetBool("isMove", true);
+            if(move>0)
+                spriteRenderer.flipX = false; // 右向き
+            else
+                spriteRenderer.flipX = true;  // 左向き
+        }
+        else
+        {
+            animator.SetBool("isMove", false);
+        }
         */
 
 
-      
-      // マウスのスクリーン座標を取得
-      Vector3 mousePosition = Input.mousePosition;
-
-      // スクリーン座標をワールド座標に変換
-      mousePosition = Camera.main.ScreenToWorldPoint(mousePosition);
-
-      // オブジェクトをマウス位置に移動
-      transform.position = new Vector3(mousePosition.x/division,positionY,0);
-      
     }
 
     int ParseXValue(string input)

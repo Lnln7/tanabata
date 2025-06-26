@@ -6,6 +6,10 @@ public class Planet : MonoBehaviour
 {
     [SerializeField]
     private float speed = 5f;
+    [SerializeField]
+    private float delay = 4.0f; // 削除までの秒数
+    [SerializeField]
+    private GameObject getEffectPrefab;
     private Rigidbody2D rb;
     private GameObject gameManagerObj;
     private GameManager gameManager;
@@ -22,19 +26,21 @@ public class Planet : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
         
 
-        var list = gameManager.PlanetOder();
+        var oderList = gameManager.PlanetOder();
+        var sprites = gameManager.PlanetSprite();
 
 
         if (gameManager.planetIntervalCount != 0)
         {
             //この惑星の番号を取得。なんの惑星か。
-            planetNumber = list[gameManager.planetIntervalCount-1];
+            planetNumber = oderList[gameManager.planetIntervalCount-1];
         }
 
         //見た目をリストから選んで変える
-        //if(gameManager.sprites[planetNumber] != null)
-          //spriteRenderer.sprite = gameManager.sprites[planetNumber];
+        if(sprites[planetNumber] != null)
+          spriteRenderer.sprite = sprites[planetNumber];
 
+        Destroy(gameObject, delay);
     }
 
     // Update is called once per frame
@@ -52,6 +58,7 @@ public class Planet : MonoBehaviour
             //Debug.Log("惑星を取った！！");
             var list = gameManager.GetPlanetList();
 
+            Instantiate(getEffectPrefab, transform.position, transform.rotation, null); // ワールド空間に生成
             gameManager.PlaySE(gameManager.planetSE);
 
             gameManager.score += gameManager.planetScore;

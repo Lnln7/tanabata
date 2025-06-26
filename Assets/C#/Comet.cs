@@ -6,6 +6,12 @@ public class Comet : MonoBehaviour
 {
     [SerializeField]
     private float speed = 5f;
+    [SerializeField]
+    private float delay = 4.0f; // 削除までの秒数
+    [SerializeField]
+    private float getDelay = 3.0f; // 取得から削除までの秒数
+    [SerializeField]
+    private GameObject getEffectPrefab;
     private Rigidbody2D rb;
     private GameObject gameManagerObj;
     private GameManager gameManager;
@@ -16,12 +22,15 @@ public class Comet : MonoBehaviour
         gameManagerObj = GameObject.Find("GameManager");
         gameManager = gameManagerObj.GetComponent<GameManager>();
         rb = GetComponent<Rigidbody2D>();
+
+        Destroy(gameObject, delay);
     }
 
     // Update is called once per frame
     void Update()
     {
-        rb.velocity = new Vector2(0, -speed);
+        if(rb != null)
+           rb.velocity = new Vector2(0, -speed);
     }
 
     // トリガーに入ったときに呼び出される
@@ -34,11 +43,23 @@ public class Comet : MonoBehaviour
             gameManager.PlaySE(gameManager.cometSE);
 
             gameManager.score += gameManager.cometScore;
-            Destroy(gameObject);
+            Destroy(rb, 0.1f);
+            Destroy(GetComponent<SpriteRenderer>(), 0.1f);
+            Destroy(GetComponent<CircleCollider2D>(),0.1f);
+            StartCoroutine(TrailOff());
+
+            Destroy(gameObject, getDelay);
         }
         else
         {
             Debug.Log($"タグ: {other.tag} のオブジェクトがトリガーに入りました。");
         }
+    }
+
+    IEnumerator TrailOff()
+    {
+        yield return new WaitForSeconds(0.05f);
+        Instantiate(getEffectPrefab, transform.position, transform.rotation, null); // ワールド空間に生成
+        GetComponent<TrailRenderer>().emitting = false;
     }
 }
