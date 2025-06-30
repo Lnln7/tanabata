@@ -11,9 +11,6 @@ public class TitleManager : MonoBehaviour
 
     private bool isButton = false;
 
-    //public Image fadeImage; // フェード用のImage
-    public float fadeDuration = 1.0f; // フェードの時間
-
     // Start is called before the first frame update
     void Start()
     {
@@ -54,7 +51,7 @@ public class TitleManager : MonoBehaviour
 
         //yield return new WaitForSeconds(0.5f);
 
-        SceneManager.LoadScene("MainGameScene");
+        SceneFader.Instance.FadeToScene("MainGameScene");
 
     }
 

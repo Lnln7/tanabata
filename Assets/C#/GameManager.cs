@@ -24,9 +24,7 @@ public class GameManager : MonoBehaviour
     [Header("リザルト時間")]
     [SerializeField]
     private float resultTime;
-    [Header("BGMフェード時間")]
-    [SerializeField]
-    private float fadeDuration = 2.0f;
+    private SceneFader sceneFader;
 
 
     [Header("星の点数")]
@@ -91,6 +89,10 @@ public class GameManager : MonoBehaviour
     public AudioClip ruleBGM;
     public AudioClip gameBGM;
     public AudioClip resultBGM;
+    [Header("BGMフェード時間")]
+    [SerializeField]
+    private float fadeDuration = 2.0f;
+
 
     [System.NonSerialized]
     public bool isButton = false;
@@ -290,10 +292,10 @@ public class GameManager : MonoBehaviour
         }
         resultScoreText.text = score.ToString();
         yield return new WaitForSeconds(resultTime);
-        SceneManager.LoadScene("TitleScene");
+        SceneFader.Instance.FadeToScene("TitleScene");
     }
 
-    
+
     public void PlaySE(AudioClip clip)//呼び出されたらSE
     {
         if (audioSource != null)

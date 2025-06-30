@@ -8,7 +8,7 @@ TagManager:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - FadeUI
   - Water
   - UI
   - Player
@@ -49,4 +49,7 @@ TagManager:
     locked: 0
   - name: UI
     uniqueID: 2598324111
+    locked: 0
+  - name: FadeUI
+    uniqueID: 2277005843
     locked: 0

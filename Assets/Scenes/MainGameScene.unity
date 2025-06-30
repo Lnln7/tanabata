@@ -771,8 +771,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -70, y: 425}
-  m_SizeDelta: {x: 600, y: 350}
+  m_AnchoredPosition: {x: -70, y: 420}
+  m_SizeDelta: {x: 744.05, y: 350}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1299222106
 MonoBehaviour:
@@ -6473,7 +6473,6 @@ MonoBehaviour:
   gameEndTime: 40
   resultWaitTime: 3
   resultTime: 30
-  fadeDuration: 1
   sterScore: 5
   planetScore: 30
   cometScore: 100
@@ -6495,7 +6494,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 8d9c33c550cab424cbf8d7e24fe454b5, type: 3}
   - {fileID: 21300000, guid: 30009742aad025543a4ca4fb40f04682, type: 3}
   - {fileID: 21300000, guid: a0125aabd831583479e1520614c737ec, type: 3}
-  spawnInterval: 0.82
+  spawnInterval: 0.807
   spawnPointY: 8
   starSE: {fileID: 8300000, guid: 2b6469bf8298f2f45b5c9c13198cd6aa, type: 3}
   planetSE: {fileID: 8300000, guid: a6b7843595a693f4faf793e4526d7b9b, type: 3}
@@ -6503,6 +6502,7 @@ MonoBehaviour:
   ruleBGM: {fileID: 8300000, guid: 95b888ff633d3e24cb1fe2a225710d99, type: 3}
   gameBGM: {fileID: 8300000, guid: c6611bb350156624faf82b9990cc8b0b, type: 3}
   resultBGM: {fileID: 8300000, guid: 984f00c105793b84694dc3f5a10c745f, type: 3}
+  fadeDuration: 1
 --- !u!1 &3229100732327384803
 GameObject:
   m_ObjectHideFlags: 0
