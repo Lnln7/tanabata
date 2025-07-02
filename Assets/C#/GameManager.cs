@@ -82,9 +82,12 @@ public class GameManager : MonoBehaviour
     private AudioSource audioSource = null;
 
     [Header("SE")]
+    public AudioClip buttonSE;
     public AudioClip starSE;
     public AudioClip planetSE;
     public AudioClip cometSE;
+    public AudioClip planetComeSE;
+    public AudioClip cometComeSE;
     [Header("BGM")]
     public AudioClip ruleBGM;
     public AudioClip gameBGM;
@@ -199,6 +202,7 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(resultWaitTime);
         PlayResultBGM();
         StartCoroutine(WaitResult());
+        StartCoroutine(WaitResultButton());
     }
 
     IEnumerator WaitReading()
@@ -209,7 +213,7 @@ public class GameManager : MonoBehaviour
 
     IEnumerator WaitForSpace()
     {
-        Debug.Log("スペースキーが押されるのを待っています...");
+        Debug.Log("ボタンが押されるのを待っています...");
 
         // isButton が true になるまで待機
         while (!isButton)
@@ -218,6 +222,8 @@ public class GameManager : MonoBehaviour
         }
 
         StartCoroutine(FadeOutCoroutine());
+
+        PlaySE(buttonSE);
 
         gameOn = true;
         panel.SetActive(false);
@@ -279,7 +285,7 @@ public class GameManager : MonoBehaviour
     IEnumerator WaitResult()
     {
         resultPanel.SetActive(true);
-        for (int i = 0; i < 7; i++)
+        for (int i = 0; i < 8; i++)
         {
             if (getPlanetList[i])
             {
@@ -292,6 +298,20 @@ public class GameManager : MonoBehaviour
         }
         resultScoreText.text = score.ToString();
         yield return new WaitForSeconds(resultTime);
+        SceneFader.Instance.FadeToScene("TitleScene");
+    }
+
+    IEnumerator WaitResultButton()
+    {
+        Debug.Log("ボタンが押されるのを待っています...");
+
+        // isButton が true になるまで待機
+        while (!isButton)
+        {
+            yield return null; // 毎フレーム待機
+        }
+
+        PlaySE(buttonSE);
         SceneFader.Instance.FadeToScene("TitleScene");
     }
 

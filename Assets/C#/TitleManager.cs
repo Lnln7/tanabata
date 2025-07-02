@@ -7,16 +7,19 @@ using System.IO.Ports;
 
 public class TitleManager : MonoBehaviour
 {
-    SerialPort serialPort = new SerialPort("COM6", 9600);
+    SerialPort serialPort = new SerialPort("COM7", 9600);
 
+    private AudioSource audioSource = null;
     private bool isButton = false;
+
+    public AudioClip startButtonSE;
 
     // Start is called before the first frame update
     void Start()
     {
         serialPort.Open();
         serialPort.ReadTimeout = 100;
-
+        audioSource = GetComponent<AudioSource>();
         StartCoroutine(WaitForSpace());
     }
 
@@ -31,6 +34,7 @@ public class TitleManager : MonoBehaviour
                 if (data.Contains("PUSHED!"))
                 {
                     isButton = true;
+                    audioSource.PlayOneShot(startButtonSE);
                     Debug.Log("ボタンが押されました！");
                     // ここに任意の処理を追加（例：オブジェクトを動かすなど）
                 }
@@ -41,7 +45,7 @@ public class TitleManager : MonoBehaviour
     }
     IEnumerator WaitForSpace()
     {
-        Debug.Log("スペースキーが押されるのを待っています...");
+        Debug.Log("ボタンが押されるのを待っています...");
 
         // isButton が true になるまで待機
         while (!isButton)

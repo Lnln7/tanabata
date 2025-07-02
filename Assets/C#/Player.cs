@@ -15,7 +15,7 @@ public class Player : MonoBehaviour
 
 
     //ƒŒƒo[‚Å
-    SerialPort serial = new SerialPort("COM6", 9600);
+    SerialPort serial = new SerialPort("COM7", 9600);
     public Rigidbody2D rb;
     
 

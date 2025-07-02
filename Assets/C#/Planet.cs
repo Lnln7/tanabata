@@ -22,6 +22,7 @@ public class Planet : MonoBehaviour
         gameManagerObj = GameObject.Find("GameManager");
         gameManager = gameManagerObj.GetComponent<GameManager>();
         rb = GetComponent<Rigidbody2D>();
+        //gameManager.PlaySE(gameManager.planetComeSE);
 
         spriteRenderer = GetComponent<SpriteRenderer>();
         
