@@ -5229,7 +5229,7 @@ GameObject:
   - component: {fileID: 1288646787}
   - component: {fileID: 1288646786}
   m_Layer: 5
-  m_Name: Canvas
+  m_Name: TitleCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5913,7 +5913,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: fe9072fe7df470d4185fe21710a812ff, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 564f3d96eb5b0844ea1e2e72acc3d0c9, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
