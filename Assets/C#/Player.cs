@@ -15,7 +15,7 @@ public class Player : MonoBehaviour
 
 
     //ÉåÉoÅ[Ç≈
-    SerialPort serial = new SerialPort("COM3", 9600);
+    //SerialPort serial = new SerialPort("COM3", 9600);
     public Rigidbody2D rb;
     
 
@@ -29,12 +29,13 @@ public class Player : MonoBehaviour
         gameManagerObj = GameObject.Find("GameManager");
         gameManager = gameManagerObj.GetComponent<GameManager>();
 
-
+        /*
         if (!serial.IsOpen)
         {
             serial.Open();
             serial.ReadTimeout = 100;
         }
+        */
         
     }
 
@@ -42,12 +43,12 @@ public class Player : MonoBehaviour
     void Update()
     {
         
-        if (serial.IsOpen)
-        {
+        //if (serial.IsOpen)
+        //{
             try
             {
-                string data = serial.ReadLine(); // ó·: "X: 300  Y: 500  SW: 1"
-                //int x = int.Parse(data);
+                string data = ArduinoReceiver.Instance.receivedData; // ó·: "X: 300  Y: 500  SW: 1"
+                                                                     //int x = int.Parse(data);
                 int x = ParseXValue(data);
 
                 Debug.Log("x_value = " + x);
@@ -95,7 +96,7 @@ public class Player : MonoBehaviour
                 }
             }
             catch (System.Exception) { }
-        }
+        //}
 
 
         /*
@@ -132,8 +133,10 @@ public class Player : MonoBehaviour
         return 512;
     }
 
+    /*
     void OnApplicationQuit()
     {
         if (serial.IsOpen) serial.Close();
     }
+    */
 }

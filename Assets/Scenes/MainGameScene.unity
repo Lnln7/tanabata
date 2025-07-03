@@ -1662,7 +1662,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 8d9c33c550cab424cbf8d7e24fe454b5, type: 3}
   - {fileID: 21300000, guid: 30009742aad025543a4ca4fb40f04682, type: 3}
   - {fileID: 21300000, guid: a0125aabd831583479e1520614c737ec, type: 3}
-  spawnInterval: 0.807
+  spawnInterval: 0.85
   spawnPointY: 8
   buttonSE: {fileID: 8300000, guid: 43793e4c30cf131479b36924415d81e8, type: 3}
   starSE: {fileID: 8300000, guid: 2b6469bf8298f2f45b5c9c13198cd6aa, type: 3}

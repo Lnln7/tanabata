@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
 {
     [System.NonSerialized]
     public bool gameOn = false;
+    private bool scoreOn = false;
 
     public int score;
 
@@ -112,6 +113,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         gameOn = false;
+        scoreOn = false;
         panel.SetActive(true);
         resultPanel.SetActive(false);
         cometTiming = Random.Range(2, 9);
@@ -134,7 +136,7 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(gameOn)
+        if(scoreOn)
         {
             scoreText.text = score.ToString();
         }
@@ -199,6 +201,8 @@ public class GameManager : MonoBehaviour
         }
         countDownText.text = "";
 
+        scoreOn = false;
+
         yield return new WaitForSeconds(resultWaitTime);
         PlayResultBGM();
         StartCoroutine(WaitResult());
@@ -226,6 +230,7 @@ public class GameManager : MonoBehaviour
         PlaySE(buttonSE);
 
         gameOn = true;
+        scoreOn = true;
         panel.SetActive(false);
 
         yield return new WaitForSeconds(0.5f);

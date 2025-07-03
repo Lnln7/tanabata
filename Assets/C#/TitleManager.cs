@@ -7,7 +7,8 @@ using System.IO.Ports;
 
 public class TitleManager : MonoBehaviour
 {
-    SerialPort serial = new SerialPort("COM3", 9600);
+    //SerialPort serial = new SerialPort("COM3", 9600);
+
 
     private AudioSource audioSource = null;
     private bool isButton = false;
@@ -17,11 +18,13 @@ public class TitleManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        /*
         if (!serial.IsOpen)
         {
             serial.Open();
             serial.ReadTimeout = 100;
         }
+        */
         audioSource = GetComponent<AudioSource>();
         StartCoroutine(WaitForSpace());
     }
@@ -29,21 +32,20 @@ public class TitleManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (serial.IsOpen)
-        {
+        //if (serial.IsOpen)
+        //{
             try
             {
-                string data = serial.ReadLine();
+                string data = ArduinoReceiver.Instance.receivedData;
                 if (data.Contains("PUSHED!"))
                 {
                     isButton = true;
-                    audioSource.PlayOneShot(startButtonSE);
                     Debug.Log("ボタンが押されました！");
                     // ここに任意の処理を追加（例：オブジェクトを動かすなど）
                 }
             }
             catch (System.Exception) { }
-        }
+        //}
 
     }
     IEnumerator WaitForSpace()
@@ -57,14 +59,15 @@ public class TitleManager : MonoBehaviour
         }
 
         //yield return new WaitForSeconds(0.5f);
-
+        audioSource.PlayOneShot(startButtonSE);
         SceneFader.Instance.FadeToScene("MainGameScene");
 
     }
 
+    /*
     void OnApplicationQuit()
     {
         if (serial.IsOpen) serial.Close();
     }
-
+    */
 }
