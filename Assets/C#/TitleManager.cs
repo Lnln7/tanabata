@@ -7,7 +7,7 @@ using System.IO.Ports;
 
 public class TitleManager : MonoBehaviour
 {
-    SerialPort serialPort = new SerialPort("COM7", 9600);
+    SerialPort serial = new SerialPort("COM3", 9600);
 
     private AudioSource audioSource = null;
     private bool isButton = false;
@@ -17,8 +17,11 @@ public class TitleManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        serialPort.Open();
-        serialPort.ReadTimeout = 100;
+        if (!serial.IsOpen)
+        {
+            serial.Open();
+            serial.ReadTimeout = 100;
+        }
         audioSource = GetComponent<AudioSource>();
         StartCoroutine(WaitForSpace());
     }
@@ -26,11 +29,11 @@ public class TitleManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (serialPort.IsOpen)
+        if (serial.IsOpen)
         {
             try
             {
-                string data = serialPort.ReadLine();
+                string data = serial.ReadLine();
                 if (data.Contains("PUSHED!"))
                 {
                     isButton = true;
@@ -61,7 +64,7 @@ public class TitleManager : MonoBehaviour
 
     void OnApplicationQuit()
     {
-        if (serialPort.IsOpen) serialPort.Close();
+        if (serial.IsOpen) serial.Close();
     }
 
 }

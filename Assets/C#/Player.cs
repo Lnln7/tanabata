@@ -15,7 +15,7 @@ public class Player : MonoBehaviour
 
 
     //ÉåÉoÅ[Ç≈
-    SerialPort serial = new SerialPort("COM7", 9600);
+    SerialPort serial = new SerialPort("COM3", 9600);
     public Rigidbody2D rb;
     
 
@@ -132,4 +132,8 @@ public class Player : MonoBehaviour
         return 512;
     }
 
+    void OnApplicationQuit()
+    {
+        if (serial.IsOpen) serial.Close();
+    }
 }
