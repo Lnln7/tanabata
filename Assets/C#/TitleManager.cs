@@ -25,6 +25,8 @@ public class TitleManager : MonoBehaviour
             serial.ReadTimeout = 100;
         }
         */
+        Cursor.visible = false; // カーソルを非表示にする
+
         audioSource = GetComponent<AudioSource>();
         StartCoroutine(WaitForSpace());
     }
