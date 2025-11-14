@@ -64,25 +64,25 @@ public class Player : MonoBehaviour
                 }
 
 
-                if (x < 100 && transform.position.x > -2.5)
+                if (x < 200 && transform.position.x > -2.5)
                 {
                     animator.SetBool("isMove", true);
                     spriteRenderer.flipX = true;  // ç∂å¸Ç´
                     rb.velocity = new Vector2(-moveSpeed, rb.velocity.y); // ç∂
                 }
-                else if (x < 450 && transform.position.x > -2.5)
+                else if (x < 470 && transform.position.x > -2.5)
                 {
                     animator.SetBool("isMove", true);
                     spriteRenderer.flipX = true;  // ç∂å¸Ç´
                     rb.velocity = new Vector2(-moveSpeed/2, rb.velocity.y); // ç∂
                 }
-                else if (x > 900 && transform.position.x < 2.5)
+                else if (x > 790 && transform.position.x < 2.5)
                 {
                     animator.SetBool("isMove", true);
                     spriteRenderer.flipX = false; // âEå¸Ç´
                     rb.velocity = new Vector2(moveSpeed, rb.velocity.y); // âE
                 }
-                else if (x > 680 && transform.position.x < 2.5)
+                else if (x > 520 && transform.position.x < 2.5)
                 {
                     animator.SetBool("isMove", true);
                     spriteRenderer.flipX = false; // âEå¸Ç´
